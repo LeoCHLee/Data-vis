@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-# from mpl_toolkits.basemap import Basemap
+from mpl_toolkits.basemap import Basemap
 from matplotlib.patches import Polygon
 import requests
 from flask import Flask, render_template, request
@@ -20,5 +20,5 @@ m.drawcoastlines(linewidth=0.5)
 m.drawcountries(linewidth=0.5, color='black')
 
 # Show the plot
-plt.savefig('custom_colored_map5.png', dpi=300, bbox_inches='tight')
+plt.savefig('custom_colored_map6.png', dpi=300, bbox_inches='tight')
 plt.show()

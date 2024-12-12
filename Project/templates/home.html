@@ -3,47 +3,112 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Map</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            /* Stack elements vertically */
-            justify-content: flex-start;
-            /* Start stacking from the top */
-            align-items: center;
-            /* Center items horizontally */
-            width: 120vw;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Map</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
 
-        header {
-            width: 100%;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            /* Adjust padding inside the header */
-            margin: 0;
-            /* Remove default margin */
-            background-color: white;
-            color: black;
-            font-size: 1.5rem;
-            font-family: Arial, sans-serif;
-            text-shadow: grey;
-        }
-    </style>
+    header {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        margin: 0;
+        background-color: white;
+        color: black;
+        font-size: 1.5rem;
+        font-family: Arial, sans-serif;
+    }
 
+    .map-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .marker {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        transform: translate(-50%, -50%);
+    }
+</style>
 </head>
 
 <body>
-    <header>
-        World Energy Statistics
-    </header>
-    <img src="{{ url_for('static', filename='custom_colored_map5.png') }}" alt="World Map">
+<header>
+    World Energy Statistics
+</header>
 
+<div class="map-container">
+    <img src="{{ url_for('static', filename='custom_colored_map6.png') }}" alt="World Map">
+</div>
+
+<script>
+    const markers = [
+        { top: 0.2, left: 0.3, color: 'red' },
+        { top: 0.5, left: 0.5, color: 'blue' },
+        { top: 0.7, left: 0.8, color: 'green' },
+        { top: 0.1, left: 0.6, color: 'purple' }
+    ];
+
+    const mapContainer = document.querySelector('.map-container');
+    const image = mapContainer.querySelector('img');
+    const markersElements = [];
+
+    function updateMarkerPositions() {
+        markers.forEach((marker, index) => {
+            const markerElement = markersElements[index];
+            if (markerElement) {
+                markerElement.style.top = `${marker.top * 100}%`;
+                markerElement.style.left = `${marker.left * 100}%`;
+            }
+        });
+    }
+
+    function createMarkers() {
+        markers.forEach((marker) => {
+            const markerElement = document.createElement('div');
+            markerElement.classList.add('marker');
+            markerElement.style.top = `${marker.top * 100}%`;
+            markerElement.style.left = `${marker.left * 100}%`;
+            markerElement.style.backgroundColor = marker.color;
+
+            markerElement.addEventListener('click', () => {
+                alert(`Marker at (${marker.top * 100}%, ${marker.left * 100}%) clicked!`);
+            });
+
+            mapContainer.appendChild(markerElement);
+            markersElements.push(markerElement);
+        });
+    }
+
+    window.addEventListener('resize', updateMarkerPositions);
+    createMarkers();
+</script>
 
 </body>
 
