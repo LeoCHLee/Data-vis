@@ -1,7 +1,9 @@
 import pandas as pd
 import plotly.express as px
+from plotly.data import gapminder
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
 
 
 # Initialize an empty dictionary
@@ -30,7 +32,7 @@ fig = px.choropleth(energy_df,
                     locationmode="country names",  # This specifies the country names mode
                     color="all renewables",  # Use the raw 'all renewables' values directly
                     hover_name="country",  # Column to show on hover
-                    color_continuous_scale="Viridis",  # You can choose any color scale
+                    color_continuous_scale="RdYlGn",  # You can choose any color scale
                     labels={"all renewables": "Renewable Energy (%)"},  # Label for the legend
                     title="Global Renewable Energy by Country (Raw Values)")
 
